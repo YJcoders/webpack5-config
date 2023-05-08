@@ -20,7 +20,7 @@ module.exports = {
   //   main: './main.js',
   // }
   output: {
-    filename: '[name]_[contenthash:8].js',
+    filename: 'js/[name]_[contenthash:8].js',
     path: path.resolve(__dirname, './dist'),
     clean: true, //  清除打包目录文件 取代 clean-webpack-plugin
     assetModuleFilename: '[name]_[contenthash:8][ext]', // 静态文件名称
@@ -110,6 +110,34 @@ module.exports = {
           // filename: 'images/[name]_[hash:8][ext][query]', 
           outputPath: isProd ? 'images' : ''
         }
+      },
+      {
+        test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)$/i,
+        type: 'asset', // 取代 file-loader和url-loader
+        parser: {
+          dataUrlCondition: {
+            maxSize: 10 * 1024 // 小于10kb，转为base64
+          }
+        },
+        generator: {
+          // output已经配置静态资源名称 assetModuleFilename，此处只需配置路径即可
+          // filename: 'images/[name]_[hash:8][ext][query]', 
+          outputPath: isProd ? 'media' : ''
+        }
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/i,
+        type: 'asset', // 取代 file-loader和url-loader
+        parser: {
+          dataUrlCondition: {
+            maxSize: 10 * 1024 // 小于10kb，转为base64
+          }
+        },
+        generator: {
+          // output已经配置静态资源名称 assetModuleFilename，此处只需配置路径即可
+          // filename: 'images/[name]_[hash:8][ext][query]', 
+          outputPath: isProd ? 'fonts' : ''
+        }
       }
     ]
   },
@@ -123,7 +151,7 @@ module.exports = {
       },
     }),
     new MiniCssExtractPlugin({
-      filename: '[name]_[contenthash:8].css'
+      filename: 'css/[name]_[contenthash:8].css'
     }),
     new CssMinimizerWebpackPlugin(),
   ],
@@ -163,7 +191,7 @@ module.exports = {
   devServer: {
     hot: true,
     compress: false, 
-    port: 3001,
+    port: 3002,
     host: "localhost",
     open: true,
     // 代理

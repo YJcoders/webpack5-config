@@ -11,7 +11,7 @@ const obj = {
 console.log(Object.keys(obj))
 
 const img = document.createElement('img')
-img.src = require('../images/webpack编译流程源码.png')
+img.src = require('../images/img1.png')
 document.body.append(img)
 
 const dom = document.getElementsByTagName('div')
