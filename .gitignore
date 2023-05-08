@@ -3,3 +3,4 @@ node_modules
 /dist*
 debug.log
 git.sh
+*.DS_Store
