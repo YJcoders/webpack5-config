@@ -7,6 +7,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 // 压缩css
 const CssMinimizerWebpackPlugin = require('css-minimizer-webpack-plugin')
 const TerserWebpackPlugin = require('terser-webpack-plugin')
+const CompressionWebpackPlugin = require("compression-webpack-plugin"); // 压缩gzip
 
 const isProd = process.env.NODE_ENV == 'production'
 
@@ -154,6 +155,14 @@ module.exports = {
       filename: 'css/[name]_[contenthash:8].css'
     }),
     new CssMinimizerWebpackPlugin(),
+
+    // 压缩代码
+    new CompressionWebpackPlugin({
+      test: /\.js$|\.css/, // 匹配文件名
+      threshold: 50000, // 对超过50k的数据压缩
+      deleteOriginalAssets: false, // 不删除源文件
+      minRatio: 0.8, // 压缩率小于0.8才会压缩
+    })
   ],
   // 优化配置
   // minimizer 压缩配置
